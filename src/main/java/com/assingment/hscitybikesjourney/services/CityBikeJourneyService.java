@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.assingment.hscitybikesjourney.dto.CityBikeJourney;
 import com.assingment.hscitybikesjourney.helper.CSVHelper;
 import com.assingment.hscitybikesjourney.repositories.CityBikeJourneyRepository;
+import com.assingment.hscitybikesjourney.repositories.SearchRepository;
 
 @Service
 public class CityBikeJourneyService {
@@ -37,9 +38,12 @@ public class CityBikeJourneyService {
     public List<CityBikeJourney> buildCityBikeJourneyObj(List<List<String>> csvData) {
         List<CityBikeJourney> allJourney = new ArrayList<CityBikeJourney>();
         csvData.stream().forEach(r -> {
-            CityBikeJourney cityBikeJourney = new CityBikeJourney(r.get(0), r.get(1), r.get(2), r.get(2), r.get(4),
+            CityBikeJourney cityBikeJourney = new CityBikeJourney(r.get(0), r.get(1), r.get(2), r.get(3), r.get(4),
                     r.get(5),
-                    r.get(6), r.get(7));
+                    Long.parseLong(r.get(
+                            6)),
+                    Long.parseLong(r.get(
+                            7)));
             allJourney.add(cityBikeJourney);
         });
         return allJourney;
@@ -50,11 +54,45 @@ public class CityBikeJourneyService {
     }
 
     private boolean isValidJourney(CityBikeJourney journey) {
-        return Integer.parseInt(journey.getDuration()) > 10 && Integer.parseInt(journey.getCoveredDistance()) > 10;
+        return journey.getDuration() > 10 && journey.getCoveredDistance() > 10;
     }
 
     public Page<CityBikeJourney> listAllBikeJourney(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 10);
         return cityBikeJourneyRepository.findAll(pageable);
     }
+
+    /*
+     * public Page<CityBikeJourney> findByDepartureStationName(String
+     * departureStationName, Integer page, Integer size) {
+     * Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ?
+     * size : 10);
+     * return
+     * cityBikeJourneyRepository.findByDepartureStationName(departureStationName,
+     * pageable);
+     * }
+     * 
+     * public Page<CityBikeJourney> findByReturnStationName(String
+     * ReturnStationName, Integer page, Integer size) {
+     * Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ?
+     * size : 10);
+     * return
+     * cityBikeJourneyRepository.findByDepartureStationName(ReturnStationName,
+     * pageable);
+     * }
+     * 
+     * public Page<CityBikeJourney> findByDistance(String distance, Integer page,
+     * Integer size) {
+     * Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ?
+     * size : 10);
+     * return cityBikeJourneyRepository.findByCoveredDistance(distance, pageable);
+     * }
+     * 
+     * public Page<CityBikeJourney> findByDuration(String duration, Integer page,
+     * Integer size) {
+     * Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ?
+     * size : 10);
+     * return cityBikeJourneyRepository.findByDuration(duration, pageable);
+     * }
+     */
 }
