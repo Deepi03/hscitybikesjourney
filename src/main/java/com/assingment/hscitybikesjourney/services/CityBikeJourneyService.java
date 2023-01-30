@@ -28,7 +28,6 @@ public class CityBikeJourneyService {
         } catch (Exception e) {
             System.out.println("fail to store csv data: " + e.getMessage());
         }
-        System.out.print("valid journey €€€€€" + validJourney);
         return validJourney;
     }
 
