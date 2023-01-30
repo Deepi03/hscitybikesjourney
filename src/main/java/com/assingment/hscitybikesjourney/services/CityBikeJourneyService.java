@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.assingment.hscitybikesjourney.dto.CityBikeJourney;
 import com.assingment.hscitybikesjourney.helper.CSVHelper;
 import com.assingment.hscitybikesjourney.repositories.CityBikeJourneyRepository;
-import com.assingment.hscitybikesjourney.repositories.SearchRepository;
 
 @Service
 public class CityBikeJourneyService {

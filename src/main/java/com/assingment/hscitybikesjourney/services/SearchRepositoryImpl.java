@@ -34,7 +34,8 @@ public class SearchRepositoryImpl implements SearchRepository {
         AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$search",
                 new Document("text",
                         new Document("query", text)
-                                .append("path", "departureStationName"))),
+                                .append("path", Arrays.asList("departureStationName",
+                                        "returnStationName")))),
                 new Document("$sort",
                         new Document("coveredDistance", 1L))));
 

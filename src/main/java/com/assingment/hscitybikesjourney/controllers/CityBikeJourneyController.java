@@ -40,8 +40,8 @@ public class CityBikeJourneyController {
                                 .ok(cityBikeJourneyService.listAllBikeJourney(page, size));
         }
 
-        @GetMapping("/journeys/{text}")
-        public ResponseEntity<List<CityBikeJourney>> search(@PathVariable String text) {
+        @GetMapping("/journeys/search")
+        public ResponseEntity<List<CityBikeJourney>> search(@RequestParam String text) {
 
                 return ResponseEntity.ok(searchRepository.findByText(text));
 
