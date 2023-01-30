@@ -2,9 +2,13 @@ package com.assingment.hscitybikesjourney.dto;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Document(collection = "cityBikeJourney")
 public class CityBikeJourney {
 
@@ -17,16 +21,4 @@ public class CityBikeJourney {
     private String coveredDistance;
     private String duration;
 
-    public CityBikeJourney(String departureTime, String returnTime, String departureStationId,
-            String departureStationName, String returnStationId, String returnStationName, String coveredDistance,
-            String duration) {
-        this.departureTime = departureTime;
-        this.returnTime = returnTime;
-        this.departureStationId = departureStationId;
-        this.departureStationName = departureStationName;
-        this.returnStationId = returnStationId;
-        this.returnStationName = returnStationName;
-        this.coveredDistance = coveredDistance;
-        this.duration = duration;
-    }
 }
