@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.assingment.hscitybikesjourney.dto.CityBikeJourney;
@@ -50,7 +53,8 @@ public class CityBikeJourneyService {
         return Integer.parseInt(journey.getDuration()) > 10 && Integer.parseInt(journey.getCoveredDistance()) > 10;
     }
 
-    public List<CityBikeJourney> listAllBikeJourney() {
-        return cityBikeJourneyRepository.findAll();
+    public Page<CityBikeJourney> listAllBikeJourney(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 10);
+        return cityBikeJourneyRepository.findAll(pageable);
     }
 }
