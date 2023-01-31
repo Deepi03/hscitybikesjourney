@@ -61,37 +61,4 @@ public class CityBikeJourneyService {
         return cityBikeJourneyRepository.findAll(pageable);
     }
 
-    /*
-     * public Page<CityBikeJourney> findByDepartureStationName(String
-     * departureStationName, Integer page, Integer size) {
-     * Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ?
-     * size : 10);
-     * return
-     * cityBikeJourneyRepository.findByDepartureStationName(departureStationName,
-     * pageable);
-     * }
-     * 
-     * public Page<CityBikeJourney> findByReturnStationName(String
-     * ReturnStationName, Integer page, Integer size) {
-     * Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ?
-     * size : 10);
-     * return
-     * cityBikeJourneyRepository.findByDepartureStationName(ReturnStationName,
-     * pageable);
-     * }
-     * 
-     * public Page<CityBikeJourney> findByDistance(String distance, Integer page,
-     * Integer size) {
-     * Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ?
-     * size : 10);
-     * return cityBikeJourneyRepository.findByCoveredDistance(distance, pageable);
-     * }
-     * 
-     * public Page<CityBikeJourney> findByDuration(String duration, Integer page,
-     * Integer size) {
-     * Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ?
-     * size : 10);
-     * return cityBikeJourneyRepository.findByDuration(duration, pageable);
-     * }
-     */
 }

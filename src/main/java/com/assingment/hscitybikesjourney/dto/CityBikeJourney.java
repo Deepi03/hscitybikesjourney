@@ -15,9 +15,9 @@ public class CityBikeJourney {
     private String departureTime;
     private String returnTime;
     private String departureStationId;
-    private String departureStationName;
+    private String departureStation;
     private String returnStationId;
-    private String returnStationName;
+    private String returnStation;
     private Long coveredDistance;
     private Long duration;
 

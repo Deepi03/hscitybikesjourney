@@ -19,29 +19,29 @@ import com.mongodb.client.MongoDatabase;
 @Component
 public class SearchRepositoryImpl implements SearchRepository {
 
-    @Autowired
-    MongoClient client;
+        @Autowired
+        MongoClient client;
 
-    @Autowired
-    MongoConverter converter;
+        @Autowired
+        MongoConverter converter;
 
-    public List<CityBikeJourney> findByText(String text) {
-        final List<CityBikeJourney> journeys = new ArrayList<>();
+        public List<CityBikeJourney> findByText(String text) {
+                final List<CityBikeJourney> journeys = new ArrayList<>();
 
-        MongoDatabase database = client.getDatabase("helsinkicitybikejourneys");
-        MongoCollection<Document> collection = database.getCollection("cityBikeJourney");
+                MongoDatabase database = client.getDatabase("helsinkicitybikejourneys");
+                MongoCollection<Document> collection = database.getCollection("cityBikeJourney");
 
-        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$search",
-                new Document("text",
-                        new Document("query", text)
-                                .append("path", Arrays.asList("departureStationName",
-                                        "returnStationName")))),
-                new Document("$sort",
-                        new Document("coveredDistance", 1L))));
+                AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$search",
+                                new Document("text",
+                                                new Document("query", text)
+                                                                .append("path", Arrays.asList("departureStation",
+                                                                                "returnStation")))),
+                                new Document("$sort",
+                                                new Document("coveredDistance", 1L))));
 
-        result.forEach(doc -> journeys.add(converter.read(CityBikeJourney.class, doc)));
-        return journeys;
+                result.forEach(doc -> journeys.add(converter.read(CityBikeJourney.class, doc)));
+                return journeys;
 
-    }
+        }
 
 }

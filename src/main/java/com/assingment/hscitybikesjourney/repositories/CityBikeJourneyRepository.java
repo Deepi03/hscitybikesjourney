@@ -16,18 +16,6 @@ public interface CityBikeJourneyRepository extends MongoRepository<CityBikeJourn
 
     }
 
-    /*
-     * Page<CityBikeJourney> findByDepartureStationName(String departureStationName,
-     * Pageable pageable);
-     * 
-     * Page<CityBikeJourney> findByReturnStationName(String returnStationName,
-     * Pageable pageable);
-     * 
-     * Page<CityBikeJourney> findByCoveredDistance(String coveredDistance, Pageable
-     * pageable);
-     * 
-     * Page<CityBikeJourney> findByDuration(String duration, Pageable pageable);
-     */
-
     Page<CityBikeJourney> findBy(Pageable pageable);
+
 }
