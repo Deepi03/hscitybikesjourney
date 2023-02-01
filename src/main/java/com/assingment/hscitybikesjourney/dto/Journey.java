@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "cityBikeJourney")
-public class CityBikeJourney {
+@Document(collection = "journey")
+public class Journey {
 
     private String departureTime;
     private String returnTime;

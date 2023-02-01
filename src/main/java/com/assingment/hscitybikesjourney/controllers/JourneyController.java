@@ -10,32 +10,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.assingment.hscitybikesjourney.dto.CityBikeJourney;
+import com.assingment.hscitybikesjourney.dto.Journey;
 import com.assingment.hscitybikesjourney.repositories.SearchRepository;
-import com.assingment.hscitybikesjourney.services.CityBikeJourneyService;
+import com.assingment.hscitybikesjourney.services.JourneyService;
 
 @RestController
 @RequestMapping("/api")
-public class CityBikeJourneyController {
+public class JourneyController {
 
         @Autowired
-        CityBikeJourneyService cityBikeJourneyService;
+        JourneyService journeyService;
 
         @Autowired
         SearchRepository searchRepository;
 
         @GetMapping("/journeys")
-        public ResponseEntity<Page<CityBikeJourney>> getAll(@RequestParam(required = false) Integer page,
+        public ResponseEntity<Page<Journey>> getAll(@RequestParam(required = false) Integer page,
                         @RequestParam(required = false) Integer size) {
 
                 return ResponseEntity
-                                .ok(cityBikeJourneyService.listAllBikeJourney(page, size));
+                                .ok(journeyService.listAllBikeJourney(page, size));
         }
 
         @GetMapping("/journeys/search")
-        public ResponseEntity<List<CityBikeJourney>> search(@RequestParam String text) {
+        public ResponseEntity<List<Journey>> search(@RequestParam String text) {
 
-                return ResponseEntity.ok(searchRepository.findByText(text));
+                return ResponseEntity.ok(journeyService.searchJourney(text));
 
         }
 
