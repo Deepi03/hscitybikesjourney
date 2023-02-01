@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.assingment.hscitybikesjourney.dto.Journey;
 import com.assingment.hscitybikesjourney.helper.CSVHelper;
 import com.assingment.hscitybikesjourney.repositories.JourneyRepository;
-import com.assingment.hscitybikesjourney.repositories.SearchRepository;
 
 @Service
 public class JourneyService {
@@ -21,12 +20,17 @@ public class JourneyService {
     JourneyRepository cityBikeJourneyRepository;
 
     @Autowired
-    SearchRepository searchRepository;
-
-    @Autowired
     CSVHelper csvHelper;
 
-    public List<Journey> saveData() {
+    /**
+     * 
+     * 
+     * @return valid journey after validations such as no journeys that lasted for
+     *         less than ten seconds and that covered distances shorter than 10
+     *         meters
+     */
+
+    public List<Journey> saveDataToDB() {
         List<Journey> validJourney = new ArrayList<>();
         try {
             List<List<String>> csvData = csvHelper.readFile();
@@ -37,6 +41,12 @@ public class JourneyService {
         }
         return validJourney;
     }
+
+    /**
+     * 
+     * @param csvData
+     * @return converted journey object list
+     */
 
     public List<Journey> buildCityBikeJourneyObj(List<List<String>> csvData) {
         List<Journey> allJourney = new ArrayList<Journey>();
@@ -60,15 +70,16 @@ public class JourneyService {
         return journey.getDuration() > 10 && journey.getCoveredDistance() > 10;
     }
 
+    /**
+     * 
+     * @param page
+     * @param size
+     * @return all journey from repository with pagination
+     */
+
     public Page<Journey> listAllBikeJourney(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 10);
         return cityBikeJourneyRepository.findAll(pageable);
-    }
-
-    public List<Journey> searchJourney(String text) {
-
-        return searchRepository.searchJourney(text);
-
     }
 
 }

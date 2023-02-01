@@ -3,7 +3,6 @@ package com.assingment.hscitybikesjourney.services;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,11 @@ public class StationService {
 
     Gson gson = new Gson();
 
+    /**
+     * @return found stations from journey and returns disticnt station with number
+     *         of returns and departures
+     */
+
     public List<Station> findAllStationsFromJourney() {
         MongoDatabase database = client.getDatabase("helsinkicitybikejourneys");
         MongoCollection<Document> collection = database.getCollection("journey");
@@ -48,11 +52,17 @@ public class StationService {
         List<Station> departueStations = groupByStationType(collection, "departureStation");
         List<Station> returnStations = groupByStationType(collection, "returnStation");
         List<Station> stations = buildUniqueStations(departueStations, returnStations);
-        // stations.addAll(returnStations);
 
-        System.out.println("stations €€€€€" + stations.size());
         return stations;
     }
+
+    /**
+     * @param departueStations
+     * @param returnStations
+     * @return list of unique stations
+     *         each station object has station name with number of departures and
+     *         returns
+     */
 
     public List<Station> buildUniqueStations(List<Station> departueStations, List<Station> returnStations) {
         List<Station> allStations = new ArrayList<>();
@@ -77,7 +87,16 @@ public class StationService {
 
     }
 
-    public List<Station> groupByStationType(MongoCollection<Document> collection, String stationType) {
+    /**
+     * 
+     * @param collection
+     * @param stationType
+     * @return list of return stations when return station type is passed
+     *         return List of departure stations when departure station type is
+     *         passed
+     */
+
+    private List<Station> groupByStationType(MongoCollection<Document> collection, String stationType) {
         List<Station> stations = new ArrayList<>();
         collection.aggregate(Arrays.asList(Aggregates.group(
                 "$" + stationType, Accumulators.sum("count", 1))))
@@ -95,12 +114,23 @@ public class StationService {
         return stations;
     }
 
+    /**
+     * @param page
+     * @param size
+     * @return all stations from repository with pagination
+     */
+
     public Page<Station> findAllStations(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 10);
         return cityBikeStationRespository.findAll(pageable);
     }
 
-    public List<Station> searchJourney(String text) {
+    /**
+     * @param text
+     * @return single station based on given search text
+     */
+
+    public List<Station> searchStation(String text) {
 
         return searchRepository.searchStation(text);
 

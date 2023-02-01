@@ -14,12 +14,25 @@ import com.assingment.hscitybikesjourney.dto.Station;
 
 import com.assingment.hscitybikesjourney.services.StationService;
 
+/**
+ * endpoint for stations and search station
+ * 
+ * "api/stations"
+ */
+
 @RestController
 @RequestMapping("/api")
 public class StationController {
 
     @Autowired
     StationService stationService;
+
+    /**
+     * 
+     * @param page
+     * @param size
+     * @return all the stations with number of depart and returns
+     */
 
     @GetMapping("/stations")
     public ResponseEntity<Page<Station>> getAllStations(@RequestParam(required = false) Integer page,
@@ -28,10 +41,16 @@ public class StationController {
                 .ok(stationService.findAllStations(page, size));
     }
 
+    /**
+     * 
+     * @param text
+     * @return get the station based on given search text
+     */
+
     @GetMapping("/stations/search")
     public ResponseEntity<List<Station>> search(@RequestParam String text) {
 
-        return ResponseEntity.ok(stationService.searchJourney(text));
+        return ResponseEntity.ok(stationService.searchStation(text));
 
     }
 

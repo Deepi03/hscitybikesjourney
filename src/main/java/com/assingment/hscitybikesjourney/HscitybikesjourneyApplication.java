@@ -43,7 +43,7 @@ public class HscitybikesjourneyApplication {
 		mongoTemplate.remove(new Query(), "station");
 
 		return () -> {
-			journeyRepository.saveAll(journeyService.saveData());
+			journeyRepository.saveAll(journeyService.saveDataToDB());
 			stationRespository.saveAll(stationService.findAllStationsFromJourney());
 
 		};

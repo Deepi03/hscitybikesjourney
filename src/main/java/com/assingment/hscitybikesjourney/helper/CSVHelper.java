@@ -9,6 +9,11 @@ import java.util.Scanner;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * read csv file and add it to the list
+ * 
+ * @return list of list of strings
+ */
 @Service
 public class CSVHelper {
 

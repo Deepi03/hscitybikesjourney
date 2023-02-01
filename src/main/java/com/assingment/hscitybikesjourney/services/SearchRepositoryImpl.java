@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.stereotype.Component;
 
-import com.assingment.hscitybikesjourney.dto.Journey;
 import com.assingment.hscitybikesjourney.dto.Station;
 import com.assingment.hscitybikesjourney.repositories.SearchRepository;
 import com.mongodb.client.AggregateIterable;
@@ -20,47 +19,30 @@ import com.mongodb.client.MongoDatabase;
 @Component
 public class SearchRepositoryImpl implements SearchRepository {
 
-        @Autowired
-        MongoClient client;
+    @Autowired
+    MongoClient client;
 
-        @Autowired
-        MongoConverter converter;
+    @Autowired
+    MongoConverter converter;
 
-        public List<Journey> searchJourney(String text) {
-                final List<Journey> journeys = new ArrayList<>();
+    /**
+     * implements SearchRepository interface and returns station based on the given
+     * search text
+     */
 
-                MongoDatabase database = client.getDatabase("helsinkicitybikejourneys");
-                MongoCollection<Document> collection = database.getCollection("journey");
+    public List<Station> searchStation(String text) {
+        final List<Station> stations = new ArrayList<>();
 
-                AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$search",
-                                new Document("text",
-                                                new Document("query", text)
-                                                                .append("path", Arrays.asList("departureStation",
-                                                                                "returnStation")))),
-                                new Document("$sort",
-                                                new Document("coveredDistance", 1L))));
+        MongoDatabase database = client.getDatabase("helsinkicitybikejourneys");
+        MongoCollection<Document> collection = database.getCollection("station");
 
-                result.forEach(doc -> journeys.add(converter.read(Journey.class, doc)));
-                return journeys;
+        AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$search",
+                new Document("text",
+                        new Document("query", text)
+                                .append("path", "station")))));
 
-        }
+        result.forEach(doc -> stations.add(converter.read(Station.class, doc)));
+        return stations;
 
-        public List<Station> searchStation(String text) {
-                final List<Station> stations = new ArrayList<>();
-
-                MongoDatabase database = client.getDatabase("helsinkicitybikejourneys");
-                MongoCollection<Document> collection = database.getCollection("station");
-
-                AggregateIterable<Document> result = collection.aggregate(Arrays.asList(new Document("$search",
-                                new Document("text",
-                                                new Document("query", text)
-                                                                .append("path", "station"))),
-                                new Document("$sort",
-                                                new Document("coveredDistance", 1L))));
-
-                result.forEach(doc -> stations.add(converter.read(Station.class, doc)));
-                return stations;
-
-        }
-
+    }
 }
