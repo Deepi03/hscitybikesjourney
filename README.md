@@ -1,9 +1,9 @@
 # helsinkiCityBikeJourney
 
 This application does the following
- * Import  data from csv file to db
- * endpoints for journeys with details of each joureny
- * endpoint for stations with number of return journeys and number of departure jjourneys
+ * Import data from csv file to db
+ * API endpoints for journeys with details of each joureny
+ * API endpoint for stations with number of return journeys and number of departure journeys
 
 ## Prerequisite
 Following tools required,
@@ -11,6 +11,13 @@ Following tools required,
  * Maven 3
  * spring-boot
  * Mongodb atlas(singIn mongodb atlas and provide connection credentials in application.properties )
+
+ For example : 
+ ``
+spring.data.mongodb.uri=mongodb+srv://<username>:<password>@cluster0.qowburv.mongodb.net/?retryWrites=true&w=majority
+spring.data.mongodb.database=<database name>
+``
+
 
   ## API 
   ### Build and Run
@@ -36,7 +43,7 @@ URL:
  http://localhost:8080/api/journeys
  ``
 
-  for Pagination :
+  for Pagination(optional) :
 ``
 http://localhost:8080/api/journeys?page=1&size=2
 ``
@@ -116,7 +123,7 @@ URL:
  http://localhost:8080/api/stations
  ``
 
-  for Pagination :
+ for Pagination(optional) :
 ``
 http://localhost:8080/api/stations?page=1&size=2
 ``
