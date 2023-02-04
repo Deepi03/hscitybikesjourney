@@ -49,7 +49,7 @@ public class StationController {
      * @return get the station based on given search text
      */
 
-    @GetMapping("/search")
+    @GetMapping("stations/search")
     public ResponseEntity<List<Station>> search(@RequestParam String text) {
 
         return ResponseEntity.ok(stationService.searchStation(text));
