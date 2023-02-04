@@ -1,21 +1,20 @@
 # helsinkiCityBikeJourney
 
 This application does the following
- * Import data from csv file to db
- * API endpoints for journeys with details of each joureny
- * API endpoint for stations with number of return journeys and number of departure journeys
+ * Import data from csv file to db during application bootstrap
+ * API endpoints for listing city bike journeys with details of each journey
+ * API endpoint for listing city bike stations with details
 
 ## Prerequisite
 Following tools required,
- * java 8 or greater
+ * Java 8 or greater
  * Maven 3
- * spring-boot
- * Mongodb atlas(singIn mongodb atlas and provide connection credentials in application.properties )
+ * Mongodb atlas(singIn mongodb atlas `` https://www.mongodb.com/atlas/database `` and provide connection credentials in application.properties)
 
- For example : 
+ For example (application.properties) : 
  ``
 spring.data.mongodb.uri=mongodb+srv://<username>:<password>@cluster0.qowburv.mongodb.net/?retryWrites=true&w=majority
-spring.data.mongodb.database=<database name>
+spring.data.mongodb.database=<databasesname>
 ``
 
 
@@ -192,3 +191,16 @@ Response:
     }
 ]
 ``
+## Technology choosen
+* Spring-boot 2.7
+* git
+* lombok 1.18
+* junit
+
+
+## TODO
+* Dockerization
+* More Unit tests
+* E2E Test
+* Additional features for Single station view
+
