@@ -9,10 +9,10 @@ import com.assingment.hscitybikesjourney.dto.Station;
 
 @Repository
 public interface StationRespository extends MongoRepository<Station, String> {
-
     @Override
     default Page<Station> findAll(Pageable pageable) {
         return findBy(pageable);
+
     }
 
     Page<Station> findBy(Pageable pageable);

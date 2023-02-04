@@ -79,6 +79,7 @@ public class JourneyService {
 
     public Page<Journey> listAllBikeJourney(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 10);
+
         return cityBikeJourneyRepository.findAll(pageable);
     }
 
