@@ -103,7 +103,8 @@ public class StationService {
                 .forEach(doc -> {
                     ModelMongo stationNameAndCount = gson.fromJson(doc.toJson(), ModelMongo.class);
                     if (stationType.equals("departureStation")) {
-                        stations.add(new Station(stationNameAndCount.get_id(),
+                        stations.add(new Station(
+                                stationNameAndCount.get_id(),
                                 stationNameAndCount.getCount(), 0));
                     } else {
                         stations.add(new Station(stationNameAndCount.get_id(), 0,
