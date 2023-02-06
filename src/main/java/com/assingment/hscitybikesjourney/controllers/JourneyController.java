@@ -44,4 +44,17 @@ public class JourneyController {
                                 .ok(journeyService.listAllBikeJourney(page, size));
         }
 
+        /**
+         * 
+         * @param text
+         * @return get the station based on given search text
+         */
+
+        @GetMapping("journey/search")
+        public ResponseEntity<List<Journey>> search(@RequestParam String text) {
+
+                return ResponseEntity.ok(journeyService.searchJourney(text));
+
+        }
+
 }

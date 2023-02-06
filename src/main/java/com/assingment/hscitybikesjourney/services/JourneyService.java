@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 import com.assingment.hscitybikesjourney.dto.Journey;
 import com.assingment.hscitybikesjourney.helper.CSVHelper;
 import com.assingment.hscitybikesjourney.repositories.JourneyRepository;
+import com.assingment.hscitybikesjourney.repositories.SearchRepository;
 
 @Service
 public class JourneyService {
 
     @Autowired
-    JourneyRepository cityBikeJourneyRepository;
+    JourneyRepository journeyRepository;
+
+    @Autowired
+    SearchRepository searchRepository;
 
     @Autowired
     CSVHelper csvHelper;
@@ -80,7 +84,19 @@ public class JourneyService {
     public Page<Journey> listAllBikeJourney(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page != null ? page : 0, size != null ? size : 10);
 
-        return cityBikeJourneyRepository.findAll(pageable);
+        return journeyRepository.findAll(pageable);
+    }
+
+    /**
+     * @param text
+     * @return journeys based on given search text
+     */
+
+    public List<Journey> searchJourney(String text) {
+
+        System.out.println("search" + text);
+        return searchRepository.searchJourney(text);
+
     }
 
 }
